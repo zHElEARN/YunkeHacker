@@ -22,11 +22,11 @@ XSS 攻击实例
 
 8. 使用 send_message()函数开始你的操作吧！
 
-### 2. 使用
+### 2. 使用油猴插件
 
-1. 安装Tampermonkey插件
+1. 安装 Tampermonkey 插件
 2. 点击链接[安装](https://github.com/zHElEARN/YunkeHacker/raw/master/YunkeHacker.user.js)
-3. 打开直播间 设置你的用户Id，课程Id和Token
+3. 打开直播间 设置你的用户 Id，课程 Id 和 Token
 4. 开始你的操作吧
 
 ## 原理
