@@ -86,13 +86,17 @@
                 </div>',
 			buttons: [
 				{
-					text: "获得默认值",
+					text: "自动获取",
 					close: false,
 					onClick: function(inst) {
 						$("#user_id").val(getCookie("uid"));
-						mdui.updateTextFields("#user_id");
 						$("#user_token").val(getCookie("token"));
-						mdui.updateTextFields("#user_token");
+						let plan_id = window.location.href.split("/")[4];
+						if (plan_id.indexOf("mdui-dialog") != -1) {
+							plan_id = plan_id.split("#")[0];
+						}
+						$("#plan_id").val(plan_id);
+						mdui.updateTextFields(".mdui-textfield");
 					}
 				},
 				{
