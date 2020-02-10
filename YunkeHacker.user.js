@@ -2,7 +2,7 @@
 // @name         YunkeHacker
 // @namespace    http://liuzeyun.tech/
 // @version      0.1
-// @description  XSS 攻击实例
+// @description  云课堂工具箱
 // @author       Zhe_Learn
 // @match        *://*.yunke.com/*
 // @grant        GM.setValue
