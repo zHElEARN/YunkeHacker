@@ -14,6 +14,8 @@
 (function() {
 	"use strict";
 
+	$("li.tab-trigger.statistics.tab-trigger-chat.special_org_hide").css("display", "block");
+
 	function getCookie(name) {
 		var cookies = document.cookie;
 		var list = cookies.split("; ");
