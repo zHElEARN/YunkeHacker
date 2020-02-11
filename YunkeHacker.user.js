@@ -14,8 +14,6 @@
 (function() {
 	"use strict";
 
-	$("li.tab-trigger.statistics.tab-trigger-chat.special_org_hide").css("display", "block!important");
-
 	function getCookie(name) {
 		var cookies = document.cookie;
 		var list = cookies.split("; ");
@@ -25,6 +23,16 @@
 		}
 		return "";
 	}
+
+	function addCss(data) {
+		var head = document.getElementsByTagName("head")[0];
+		var style = document.createElement("style");
+
+		style.innerHTML = data;
+		head.appendChild(style);
+	}
+
+	addCss(".spec_hideChat .tab-trigger-chat,.spec_hideChat .tab-trigger-chat .chat{display: block!important;}");
 
 	GM.setValue("configured", false);
 
