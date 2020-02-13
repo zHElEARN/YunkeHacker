@@ -1,8 +1,8 @@
 let ws;
 
-let user_id; // 你的用户Id
-let plan_id; // 你的课程Id
-let user_token; // 你的Token
+let user_id = 18889; // 你的用户Id
+let plan_id = 636055; // 你的课程Id
+let user_token = "9cf9fd50493cc6415143ea5f44055518"; // 你的Token
 let url = "wss://message.yunke.com/message.plan.ws?getOnlineUserSignal=0"; // 直播发送信息API
 
 // 获得当前时间戳

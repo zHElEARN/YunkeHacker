@@ -1,4 +1,4 @@
-# YunkeHacker | 云课堂小工具（已失效）
+# YunkeHacker | 云课堂小工具（已修复）
 
 XSS 攻击实例
 
