@@ -143,12 +143,15 @@
 									DeviceType: 10
 								};
 
+								console.info("初始化WebSocket 参数", param);
+
 								ws.send(JSON.stringify(param));
 							};
 
 							ws.onmessage = event => {
 								let data = event.data;
-								console.log("获得数据: " + data);
+
+								console.info("收到WebSocket信息", JSON.parse(data));
 							};
 
 							setInterval(() => {
@@ -160,7 +163,7 @@
 								message: "配置失败",
 								position: "right-top"
 							});
-							console.log(error);
+							console.error("错误 ", error);
 							b_error = true;
 						}
 
@@ -171,6 +174,8 @@
 							GM.setValue("configured", true);
 
 							unsafeWindow.user_ws = ws;
+
+							console.info("配置成功");
 
 							mdui.snackbar({
 								message: "配置完成",
@@ -188,6 +193,7 @@
 		configured = await GM.getValue("configured");
 
 		if (!configured) {
+			console.info("未配置", configured, "\nWebSocket信息", unsafeWindow.user_ws);
 			mdui.snackbar({
 				message: "你还没有配置",
 				position: "right-bottom"
@@ -199,8 +205,6 @@
 		let plan_id = await GM.getValue("plan_id");
 		let user_token = await GM.getValue("user_token");
 		let ws = unsafeWindow.user_ws;
-
-		console.log(ws);
 
 		let message = "";
 
@@ -218,6 +222,8 @@
 					content: message,
 					unique_id: Date.now()
 				};
+
+				console.info("发送信息 参数", messageParam);
 
 				ws.send(JSON.stringify(messageParam));
 			},
