@@ -34,6 +34,8 @@
 
 	addCss(".spec_hideChat .tab-trigger-chat,.spec_hideChat .tab-trigger-chat .chat{display: block!important;}");
 	addCss(".mdui-icon{margin-top:20px;margin-bottom:10px;}");
+	addCss("#custom_tools {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
+	addCss("#send_message {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
 
 	GM.setValue("configured", false);
 
@@ -65,11 +67,11 @@
 
 	let tab = $("#tabTriggers");
 	tab.append(
-		'<li class="tab-trigger" id="custom_tools"> \
+		'<li id="custom_tools"> \
 		<i class="mdui-icon material-icons">edit</i>\
         <p>工具</p> \
     </li> \
-	<li class="tab-trigger" id="send_message"> \
+	<li id="send_message"> \
 		<i class="mdui-icon material-icons">send</i> \
         <p>发送</p> \
     </li>'
