@@ -14,6 +14,10 @@
 (function() {
 	"use strict";
 
+	var iframe = document.createElement("iframe");
+	document.body.appendChild(iframe);
+	window.console = iframe.contentWindow.console;
+
 	function getCookie(name) {
 		var cookies = document.cookie;
 		var list = cookies.split("; ");
