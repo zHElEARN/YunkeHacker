@@ -1,12 +1,17 @@
 // ==UserScript==
 // @name         YunkeHacker
 // @namespace    http://liuzeyun.tech/
-// @version      0.1
+// @version      0.4
 // @description  云课堂工具箱
 // @author       Zhe_Learn
 // @match        *://*.yunke.com/*
 // @grant        GM.setValue
 // @grant        GM.getValue
+// @grant        unsafeWindow
+// @updateURL    https://github.com/zHElEARN/YunkeHacker/raw/master/YunkeHacker.user.js
+// @downloadURL  https://github.com/zHElEARN/YunkeHacker/raw/master/YunkeHacker.user.js
+// @supportURL   https://github.com/zHElEARN/YunkeHacker/issues
+// @homepage     https://github.com/zHElEARN/YunkeHacker
 // @require      https://code.jquery.com/jquery-3.4.0.min.js
 // @require      https://cdn.bootcss.com/mdui/0.4.3/js/mdui.min.js
 // ==/UserScript==
@@ -14,60 +19,47 @@
 (function() {
 	"use strict";
 
-	var iframe = document.createElement("iframe");
+	let iframe = document.createElement("iframe");
 	document.body.appendChild(iframe);
-	window.console = iframe.contentWindow.console;
+	let logging = iframe.contentWindow.console;
 
-	function getCookie(name) {
-		var cookies = document.cookie;
-		var list = cookies.split("; ");
-		for (var i = 0; i < list.length; i++) {
-			var arr = list[i].split("=");
+	let getCookie = name => {
+		let cookies = document.cookie;
+		let list = cookies.split("; ");
+		for (let i = 0; i < list.length; i++) {
+			let arr = list[i].split("=");
 			if (arr[0] == name) return decodeURIComponent(arr[1]);
 		}
 		return "";
-	}
+	};
 
-	function addCss(data) {
-		var head = document.getElementsByTagName("head")[0];
-		var style = document.createElement("style");
+	let addCss = data => {
+		let head = document.getElementsByTagName("head")[0];
+		let style = document.createElement("style");
 
 		style.innerHTML = data;
 		head.appendChild(style);
-	}
+	};
+
+	let importCss = path => {
+		if (!path || path.length === 0) {
+			throw new Error('参数"path"错误');
+		}
+		let head = document.getElementsByTagName("head")[0];
+		let link = document.createElement("link");
+		link.href = path;
+		link.rel = "stylesheet";
+		link.type = "text/css";
+		head.appendChild(link);
+	};
 
 	addCss(".spec_hideChat .tab-trigger-chat,.spec_hideChat .tab-trigger-chat .chat{display: block!important;}");
 	addCss(".mdui-icon{margin-top:20px;margin-bottom:10px;}");
 	addCss("#custom_tools {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
 	addCss("#send_message {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
+	importCss("https://cdn.bootcss.com/mdui/0.4.3/css/mdui.min.css");
 
 	GM.setValue("configured", false);
-
-	var importFile = {
-		css: function(path) {
-			if (!path || path.length === 0) {
-				throw new Error('参数"path"错误');
-			}
-			var head = document.getElementsByTagName("head")[0];
-			var link = document.createElement("link");
-			link.href = path;
-			link.rel = "stylesheet";
-			link.type = "text/css";
-			head.appendChild(link);
-		},
-		js: function(path) {
-			if (!path || path.length === 0) {
-				throw new Error('参数"path"错误');
-			}
-			var head = document.getElementsByTagName("head")[0];
-			var script = document.createElement("script");
-			script.src = path;
-			script.type = "text/javascript";
-			head.appendChild(script);
-		}
-	};
-
-	importFile.css("https://cdn.bootcss.com/mdui/0.4.3/css/mdui.min.css");
 
 	let tab = $("#tabTriggers");
 	tab.append(
@@ -143,7 +135,7 @@
 									DeviceType: 10
 								};
 
-								console.info("初始化WebSocket 参数", param);
+								logging.info("初始化WebSocket 参数", param);
 
 								ws.send(JSON.stringify(param));
 							};
@@ -151,7 +143,7 @@
 							ws.onmessage = event => {
 								let data = event.data;
 
-								console.info("收到WebSocket信息", JSON.parse(data));
+								logging.info("收到WebSocket信息", JSON.parse(data));
 							};
 
 							setInterval(() => {
@@ -163,7 +155,7 @@
 								message: "配置失败",
 								position: "right-top"
 							});
-							console.error("错误 ", error);
+							logging.error("错误 ", error);
 							b_error = true;
 						}
 
@@ -175,7 +167,7 @@
 
 							unsafeWindow.user_ws = ws;
 
-							console.info("配置成功");
+							logging.info("配置成功");
 
 							mdui.snackbar({
 								message: "配置完成",
@@ -193,7 +185,7 @@
 		configured = await GM.getValue("configured");
 
 		if (!configured) {
-			console.info("未配置", configured, "\nWebSocket信息", unsafeWindow.user_ws);
+			logging.info("未配置", configured, "\nWebSocket信息", unsafeWindow.user_ws);
 			mdui.snackbar({
 				message: "你还没有配置",
 				position: "right-bottom"
@@ -223,7 +215,7 @@
 					unique_id: Date.now()
 				};
 
-				console.info("发送信息 参数", messageParam);
+				logging.info("发送信息 参数", messageParam);
 
 				ws.send(JSON.stringify(messageParam));
 			},
