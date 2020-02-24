@@ -13,7 +13,7 @@
 // @supportURL   https://github.com/zHElEARN/YunkeHacker/issues
 // @homepage     https://github.com/zHElEARN/YunkeHacker
 // @require      https://code.jquery.com/jquery-3.4.0.min.js
-// @require      https://cdn.bootcss.com/mdui/0.4.3/js/mdui.min.js
+// @require      https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js
 // ==/UserScript==
 
 (function() {
@@ -57,7 +57,7 @@
 	addCss(".mdui-icon{margin-top:20px;margin-bottom:10px;}");
 	addCss("#custom_tools {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
 	addCss("#send_message {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
-	importCss("https://cdn.bootcss.com/mdui/0.4.3/css/mdui.min.css");
+	importCss("https://cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css");
 
 	GM.setValue("configured", false);
 
@@ -202,7 +202,7 @@
 
 		mdui.prompt(
 			"请输入信息",
-			function(value) {
+			value => {
 				message = value;
 				let messageParam = {
 					plan_id: plan_id,
@@ -219,7 +219,7 @@
 
 				ws.send(JSON.stringify(messageParam));
 			},
-			function(value) {},
+			value => {},
 			{
 				type: "textarea"
 			}
