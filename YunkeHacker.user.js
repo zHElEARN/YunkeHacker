@@ -53,7 +53,12 @@
 		head.appendChild(link);
 	};
 
-	addCss(".spec_hideChat .tab-trigger-chat,.spec_hideChat .tab-trigger-chat .chat{display: block!important;}");
+	// addCss(".spec_hideChat .tab-trigger-chat,.spec_hideChat .tab-trigger-chat .chat{display: block!important;}");
+
+	$(".tab-trigger-chat").removeClass("hide");
+	$(".tab-trigger-chat").attr("style", "display:block!important");
+	$(".chat").attr("style", "display: block!important");
+
 	addCss(".mdui-icon{margin-top:20px;margin-bottom:10px;}");
 	addCss("#custom_tools {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
 	addCss("#send_message {color:#999;cursor:pointer;width:60px;font-size:14px;height:85px;}");
